@@ -7,31 +7,48 @@ import joblib
 import pandas as pd
 from utils import logger
 from fastapi import FastAPI
+from contextlib import asynccontextmanager
 from pydantic import BaseModel, Field, ConfigDict
 from ml.data import CAT_FEATURES as cat_features
 from ml.data import process_data
 from ml.model import inference
 
-
 MODEL_DIR = os.path.join(os.path.dirname(__file__), "model")
-
-app = FastAPI(title="Census Income Inference API")
 
 model = None
 encoder = None
 lb = None
 
-@app.on_event("startup")
-def load_artifact():
+@asynccontextmanager
+async def lifespan(app: FastAPI):
     """
     Load the trained model, encoder, and label binarizer once at
     startup rather than per-request, to avoid repeated disk I/O on
-    every prediction call.
+    every prediction call. Stored on app.state rather than module
+    globals so artifact lifetime is tied explicitly to the app
+    instance - this matters for tests, where multiple TestClient
+    instances/app instances should not share or stomp on each
+    other's loaded state.
     """
-    global model, encoder, lb
-    model = joblib.load(os.path.join(MODEL_DIR, "model.pkl"))
-    encoder = joblib.load(os.path.join(MODEL_DIR, "encoder.pkl"))
-    lb = joblib.load(os.path.join(MODEL_DIR, "lb.pkl"))
+    app.state.model = joblib.load(os.path.join(MODEL_DIR, "model.pkl"))
+    app.stat.encoder = joblib.load(
+        os.path.join(MODEL_DIR, "encoder.pkl")
+    )
+    app.stat.lb = joblib.load(os.path.join(MODEL_DIR, "lb.pkl"))
+    yield
+    # No explicit cleanup needed -- these are in-memory objects with
+    # no open file handles/connections to release. Listed here for
+    # symmetry with the lifespan pattern, not because it does
+    # anything: app.state is torn down with the app itself.
+    app.state.model = None
+    app.state.encoder = None
+    app.state.lb = None
+
+
+app = FastAPI(
+    title="Census Income Inference API",
+    lifespan=lifespan
+)
 
 class CensusInput(BaseModel):
     """
