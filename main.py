@@ -34,7 +34,7 @@ async def lifespan(app: FastAPI):
     app.state.encoder = joblib.load(
         os.path.join(MODEL_DIR, "encoder.pkl")
     )
-    app.stat.lb = joblib.load(os.path.join(MODEL_DIR, "lb.pkl"))
+    app.state.lb = joblib.load(os.path.join(MODEL_DIR, "lb.pkl"))
     yield
     # No explicit cleanup needed -- these are in-memory objects with
     # no open file handles/connections to release. Listed here for
