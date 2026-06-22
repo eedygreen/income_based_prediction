@@ -51,7 +51,7 @@ def main():
         X_test, y_test, _, _ = process_data(
             test,
             categorical_features=cat_features,
-            label="Salary",
+            label="salary",
             training=False,
             encoder=encoder,
             lb=lb,
@@ -90,7 +90,7 @@ def main():
     except ValueError as err:
         logger.error(f"train model: error {err}")
     except Exception as e:
-        logger.error(f"tarin model: error {e}")
+        logger.error(f"tarin model: error {e}", exc_info=True)
 
 if __name__ == "__main__":
     main()
