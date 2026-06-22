@@ -1,3 +1,7 @@
+"""
+ml/data.py
+Data processing for income base model
+"""
 import numpy as np
 from sklearn.preprocessing import LabelBinarizer, OneHotEncoder
 from utils import logger
