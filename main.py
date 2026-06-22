@@ -31,7 +31,7 @@ async def lifespan(app: FastAPI):
     other's loaded state.
     """
     app.state.model = joblib.load(os.path.join(MODEL_DIR, "model.pkl"))
-    app.stat.encoder = joblib.load(
+    app.state.encoder = joblib.load(
         os.path.join(MODEL_DIR, "encoder.pkl")
     )
     app.stat.lb = joblib.load(os.path.join(MODEL_DIR, "lb.pkl"))
