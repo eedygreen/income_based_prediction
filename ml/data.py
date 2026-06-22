@@ -95,4 +95,4 @@ def process_data(
     except ValueError as err:
         logger.error(f"ml data: processing error {err}")
     except Exception as e:
-        logger.error(f"ml data: error {e}")
+        logger.error(f"ml data: error {e}", exc_info=True)
