@@ -67,8 +67,13 @@ def main():
             preds
         )
         model_performance = {
-            k: round(v, 4) for k, v in {"precision": precision, "recall": recall, "fbeta": fbeta}.items()
-        }
+            k: round(
+                v,
+                4) for k,
+            v in {
+                "precision": precision,
+                "recall": recall,
+                "fbeta": fbeta}.items()}
         logger.info(
             f"Overall test performance --\n {model_performance}"
         )
@@ -86,12 +91,14 @@ def main():
         joblib.dump(model, os.path.join(MODEL_DIR, "model.pkl"))
         joblib.dump(encoder, os.path.join(MODEL_DIR, "encoder.pkl"))
         joblib.dump(lb, os.path.join(MODEL_DIR, "lb.pkl"))
-        logger.info(f"Model, encoder amd label binarizer saved to {MODEL_DIR}/")
+        logger.info(
+            f"Model, encoder amd label binarizer saved to {MODEL_DIR}/")
 
     except ValueError as err:
         logger.error(f"train model: error {err}")
     except Exception as e:
         logger.error(f"tarin model: error {e}", exc_info=True)
+
 
 if __name__ == "__main__":
     main()
