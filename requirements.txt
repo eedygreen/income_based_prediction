@@ -17,7 +17,7 @@ requests==2.32.5
 
 # Data science libraries
 pandas==2.3.3
-numpy==2.4.6
+numpy==2.1.3
 matplotlib==3.10.6
 seaborn==0.13.2
 scikit-learn==1.7.2
@@ -41,3 +41,6 @@ httplib2==0.31.0
 
 # load and save artifact
 joblib==1.5.3
+
+# lint
+flake8==7.1.1

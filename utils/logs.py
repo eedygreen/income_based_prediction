@@ -25,8 +25,11 @@ class ColoredFormatter(logging.Formatter):
     def format(self, record):
         if self.use_colors and record.levelname in self.COLORS:
             original_loglevel = record.levelname
-            record.levelname = f"{self.COLORS[record.levelname]}{
-                record.levelname}{self.RESET}"
+            record.levelname = (
+                f"{self.COLORS[record.levelname]}"
+                f"{record.levelname}"
+                f"{self.RESET}"
+            )
             result = super().format(record)
             record.levelname = original_loglevel
             return result
