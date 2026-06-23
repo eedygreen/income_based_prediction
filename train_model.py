@@ -51,7 +51,7 @@ def main():
         X_test, y_test, _, _ = process_data(
             test,
             categorical_features=cat_features,
-            label="Salary",
+            label="salary",
             training=False,
             encoder=encoder,
             lb=lb,
@@ -66,10 +66,11 @@ def main():
             y_test,
             preds
         )
+        model_performance = {
+            k: round(v, 4) for k, v in {"precision": precision, "recall": recall, "fbeta": fbeta}.items()
+        }
         logger.info(
-            f"Overall test performance --",
-            f"precision: {precision:.4f}, recall: {recall:.4f}, "
-            f"fbeta: {fbeta:.4f}"
+            f"Overall test performance --\n {model_performance}"
         )
 
         compute_all_slice_metrics(
@@ -90,7 +91,7 @@ def main():
     except ValueError as err:
         logger.error(f"train model: error {err}")
     except Exception as e:
-        logger.error(f"tarin model: error {e}")
+        logger.error(f"tarin model: error {e}", exc_info=True)
 
 if __name__ == "__main__":
     main()
