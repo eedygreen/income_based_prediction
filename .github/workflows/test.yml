@@ -8,7 +8,7 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-atest
+    runs-on: ubuntu-latest
     name: CD
     environment: ci
 
