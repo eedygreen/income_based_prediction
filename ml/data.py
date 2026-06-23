@@ -81,7 +81,7 @@ def process_data(
             y = lb.fit_transform(y.values).ravel()
             logger.info("training completed!")
         else:
-            logger.info("starting training...")
+            logger.info("starting eval...")
             X_categorical = encoder.transform(X_categorical)
             try:
                 y = lb.transform(y.values).ravel()
