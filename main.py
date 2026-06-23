@@ -15,10 +15,6 @@ from ml.model import inference
 
 MODEL_DIR = os.path.join(os.path.dirname(__file__), "model")
 
-model = None
-encoder = None
-lb = None
-
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """
@@ -62,8 +58,8 @@ class CensusInput(BaseModel):
     Python name or the original hyphenated name.
     """
     model_config = ConfigDict(
-        populated_by_name=True,
-        json_shecma_extra={
+        populate_by_name=True,
+        json_schema_extra={
             "example": {
                 "age": 37,
                 "workclass": "Private",
@@ -82,27 +78,27 @@ class CensusInput(BaseModel):
             }
         },
     )
-    age: int = Field(..., example=37)
-    workclass: str = Field(..., example="Private")
-    fnlgt: int = Field(..., example=178356)
-    education: str = Field(..., example="Bachelors")
+    age: int = Field(...)
+    workclass: str = Field(...)
+    fnlgt: int = Field(...)
+    education: str = Field(...)
     education_num: int = Field(
-        ..., alias="education-num", example=13
+        ..., alias="education-num"
     )
     marital_status: str = Field(
-        ..., alias="marital-status", example="Married-civ-spouse"
+        ..., alias="marital-status"
     )
-    occupation: str = Field(..., example="Exec-managerial")
-    relationship: str = Field(..., example="Husband")
-    race: str = Field(...,example="White")
-    sex: str = Field(..., example="Male")
-    capital_gain: int = Field(..., alias="capital-gain", example=0)
-    capital_loss: int = Field(..., alias="capital-loss", example=0)
+    occupation: str = Field(...)
+    relationship: str = Field(...)
+    race: str = Field(...)
+    sex: str = Field(...)
+    capital_gain: int = Field(..., alias="capital-gain")
+    capital_loss: int = Field(..., alias="capital-loss")
     hours_per_week: int = Field(
-        ..., alias="hours-per-week", example=40
+        ..., alias="hours-per-week"
     )
     native_country: str = Field(
-        ..., alias="native-country", example="United-States"
+        ..., alias="native-country"
     )
 
 
@@ -133,18 +129,18 @@ def predict(payload: CensusInput) -> dict:
         record = payload.model_dump(by_alias=True)
         df = pd.DataFrame([record])
 
-        X, _, _, _ = process_data(
+        X, _, _, lb = process_data(
             df,
             categorical_features=cat_features,
             label=None,
             training=False,
-            encoder=encoder,
-            lb=lb,
+            encoder=app.state.encoder,
+            lb=app.state.lb,
         )
 
         logger.info("predicting outcome...")
-        pred = inference(model, X)
-        label = lb.inverse_transform(pred[0])
+        pred = inference(app.state.model, X)
+        label = lb.inverse_transform(pred)[0]
 
         logger.info(f"prediction: {label}")
         return {"prediction": label}
