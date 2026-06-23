@@ -67,9 +67,9 @@ def main():
             preds
         )
         model_performance = {
-            "precision": "{precision:.4f}",
-            "recall": "{recall:.4f}",
-            "fbeta": "{fbeta:.4f}"
+            "precision": f"{precision:.4f}",
+            "recall": f"{recall:.4f}",
+            "fbeta": f"{fbeta:.4f}"
         }
         logger.info(
             f"Overall test performance --\n {model_performance}"
