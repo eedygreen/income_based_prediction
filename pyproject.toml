@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=65", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "income-based-prediction-api"
+version = "0.1.0"
+description = "Deploying ML model with Fast API to cloud"
+authors = [{name = "Idris"}]
+requires-python = ">=3.10"
+
+[tool.setuptools]
+packages = ["ml", "data_cleaning", "utils"]
+
+[tool.pytest.ini_options]
+pythonpath = "."
