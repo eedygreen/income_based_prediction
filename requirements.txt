@@ -1,5 +1,4 @@
-# Exact versions from working .venv for Python 3.13
-# Generated from pip freeze - September 2025
+# Exact versions from working .venv for Python 3.14
 
 # Web framework and server
 fastapi==0.137.1
