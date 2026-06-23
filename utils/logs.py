@@ -1,8 +1,8 @@
 
 import logging
-import os, sys
+import os
+import sys
 from datetime import datetime
-
 
 
 class ColoredFormatter(logging.Formatter):
@@ -18,18 +18,21 @@ class ColoredFormatter(logging.Formatter):
 
     RESET = '\033[0m'               # Reset to default color
 
-    def __init__(self, fmt=None, datefmt=None, use_colors: bool=True):
+    def __init__(self, fmt=None, datefmt=None, use_colors: bool = True):
         super().__init__(fmt, datefmt)
         self.use_colors = use_colors
 
     def format(self, record):
         if self.use_colors and record.levelname in self.COLORS:
             original_loglevel = record.levelname
-            record.levelname = f"{self.COLORS[record.levelname]}{record.levelname}{self.RESET}"
+            record.levelname = f"{
+                self.COLORS[record.levelname]
+                }{record.levelname}{self.RESET}"
             result = super().format(record)
             record.levelname = original_loglevel
             return result
         return super().format(record)
+
 
 class Logger:
     _logger = None
