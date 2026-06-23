@@ -66,10 +66,13 @@ def main():
             y_test,
             preds
         )
+        model_performance = {
+            "precision": "{precision:.4f}",
+            "recall": "{recall:.4f}",
+            "fbeta": "{fbeta:.4f}"
+        }
         logger.info(
-            f"Overall test performance --",
-            f"precision: {precision:.4f}, recall: {recall:.4f}, "
-            f"fbeta: {fbeta:.4f}"
+            f"Overall test performance --\n {model_performance}"
         )
 
         compute_all_slice_metrics(
