@@ -41,3 +41,6 @@ httplib2==0.31.0
 
 # load and save artifact
 joblib==1.5.3
+
+# lint
+flake8==7.1.1
