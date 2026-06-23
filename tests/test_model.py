@@ -35,6 +35,7 @@ def synthetic_df():
         }
     )
 
+
 cat_feautres = ["workclass", "sex"]
 
 
