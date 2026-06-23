@@ -14,3 +14,7 @@ packages = ["ml", "data_cleaning", "utils"]
 
 [tool.pytest.ini_options]
 pythonpath = "."
+
+[tool.flake8]
+max-line-length = 79
+exclude = [".venv", "build/lib", ".git", "__pycache__", "model", ".pytest_cache"]

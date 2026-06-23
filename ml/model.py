@@ -6,6 +6,7 @@ Model training, inference, and evaluation.
 from sklearn.metrics import fbeta_score, precision_score, recall_score
 from sklearn.ensemble import RandomForestClassifier
 
+
 def train_model(X_train, y_train):
     """
     Trains a machine learning model and returns it.
@@ -33,7 +34,8 @@ def train_model(X_train, y_train):
 
 def compute_model_metrics(y, preds):
     """
-    Validates the trained machine learning model using precision, recall, and F1.
+    Validates the trained machine learning model using precision,
+    recall, and F1.
 
     Inputs
     ------

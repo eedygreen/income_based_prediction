@@ -15,6 +15,7 @@ from ml.model import inference
 
 MODEL_DIR = os.path.join(os.path.dirname(__file__), "model")
 
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """
@@ -45,6 +46,7 @@ app = FastAPI(
     title="Census Income Inference API",
     lifespan=lifespan
 )
+
 
 class CensusInput(BaseModel):
     """
@@ -108,6 +110,7 @@ def welcome() -> dict:
     Root endpoint -- simple welcome/health message.
     """
     return {"message": "Welcome to the Census Income Inference API."}
+
 
 @app.post("/predict")
 def predict(payload: CensusInput) -> dict:
