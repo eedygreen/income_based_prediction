@@ -28,7 +28,7 @@ scikit-learn==1.7.2
 #nbformat==5.10.4
 
 # ML fairness and visualization
-aequitas==0.42.0
+aequitas==1.1.0
 altair==4.1.0
 
 # Flask and extensions (for aequitas)
