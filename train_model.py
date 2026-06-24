@@ -6,7 +6,6 @@ evaluate it overall and on categorical slices,
 and save the model to disk.
 """
 import os
-import joblib
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from utils import logger
