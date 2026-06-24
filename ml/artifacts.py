@@ -45,9 +45,9 @@ def save_artifacts(
 
 def load_artifacts(
     model_dir: str,
-    model:str="model.pkl",
-    encoder:str="encoder.pkl",
-    lb:str="lb.pkl"
+    model: str = "model.pkl",
+    encoder: str = "encoder.pkl",
+    lb: str = "lb.pkl"
 ) -> tuple:
     """
     load artifact
