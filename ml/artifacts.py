@@ -6,9 +6,9 @@ import joblib
 
 
 def save_artifacts(
-    model_dir: str, 
-    model=None, 
-    encoder=None, 
+    model_dir: str,
+    model=None,
+    encoder=None,
     lb=None
 ):
     """
@@ -37,16 +37,16 @@ def save_artifacts(
         "encoder.pkl": encoder,
         "lb.pkl": lb
     }
-    
+
     for filename, value in artifact.items():
         if value is not None:
             joblib.dump(value, os.path.join(model_dir, filename))
 
 
 def load_artifacts(
-    model_dir: str, 
-    model:str="model.pkl", 
-    encoder:str="encoder.pkl", 
+    model_dir: str,
+    model:str="model.pkl",
+    encoder:str="encoder.pkl",
     lb:str="lb.pkl"
 ) -> tuple:
     """
@@ -73,5 +73,5 @@ def load_artifacts(
     """
     ld_model, ld_encoder, ld_lb = [joblib.load(
         os.path.join(model_dir, v)) for v in [model, encoder, lb]]
-    
+
     return ld_model, ld_encoder, ld_lb
