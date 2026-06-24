@@ -12,6 +12,7 @@ from sklearn.model_selection import train_test_split
 from utils import logger
 from ml.data import CAT_FEATURES as cat_features
 from ml.data import process_data
+from ml.artifacts import save_artifacts
 from ml.model import (
     train_model,
     compute_model_metrics,
@@ -88,9 +89,7 @@ def main():
         logger.info(f"Slice performance written to {SLIC_OUTPUT_PATH}")
 
         logger.info("saving model to disk...")
-        joblib.dump(model, os.path.join(MODEL_DIR, "model.pkl"))
-        joblib.dump(encoder, os.path.join(MODEL_DIR, "encoder.pkl"))
-        joblib.dump(lb, os.path.join(MODEL_DIR, "lb.pkl"))
+        save_artifacts(MODEL_DIR, model, encoder, lb)
         logger.info(
             f"Model, encoder amd label binarizer saved to {MODEL_DIR}/")
 
