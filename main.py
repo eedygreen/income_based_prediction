@@ -3,7 +3,6 @@ main.py
 FastAPI application serving the trained census income model.
 """
 import os
-import joblib
 import pandas as pd
 from utils import logger
 from fastapi import FastAPI
@@ -12,6 +11,7 @@ from pydantic import BaseModel, Field, ConfigDict
 from ml.data import CAT_FEATURES as cat_features
 from ml.data import process_data
 from ml.model import inference
+from ml.artifacts import load_artifacts
 
 MODEL_DIR = os.path.join(os.path.dirname(__file__), "model")
 
@@ -27,11 +27,12 @@ async def lifespan(app: FastAPI):
     instances/app instances should not share or stomp on each
     other's loaded state.
     """
-    app.state.model = joblib.load(os.path.join(MODEL_DIR, "model.pkl"))
-    app.state.encoder = joblib.load(
-        os.path.join(MODEL_DIR, "encoder.pkl")
+    app.state.model, app.state.encoder, app.state.lb = load_artifacts(
+        MODEL_DIR,
+        "model.pkl",
+        "encoder.pkl",
+        "lb.pkl"
     )
-    app.state.lb = joblib.load(os.path.join(MODEL_DIR, "lb.pkl"))
     yield
     # No explicit cleanup needed -- these are in-memory objects with
     # no open file handles/connections to release. Listed here for

@@ -20,7 +20,7 @@ CAT_FEATURES = [
 
 def process_data(
         X,
-        categorical_features=[],
+        categorical_features=None,
         label=None,
         training=True,
         encoder=None,
@@ -67,7 +67,7 @@ def process_data(
         logger.info("starting preprocessing...")
 
         if categorical_features is None:
-            categorical_features = []
+            categorical_features = None
 
         if label is not None:
             y = X[label]
