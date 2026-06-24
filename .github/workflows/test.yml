@@ -9,7 +9,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    name: CD
+    name: CI
     environment: ci
 
     steps:
