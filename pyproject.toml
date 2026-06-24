@@ -7,7 +7,7 @@ name = "income-based-prediction-api"
 version = "0.1.0"
 description = "Deploying ML model with Fast API to cloud"
 authors = [{name = "Idris"}]
-requires-python = ">=3.10"
+requires-python = ">=3.14"
 
 [tool.setuptools]
 packages = ["ml", "data_cleaning", "utils"]
