@@ -43,7 +43,7 @@ def save_artifacts(
             joblib.dump(value, os.path.join(model_dir, filename))
 
 
-def load_artifact(
+def load_artifacts(
     model_dir: str, 
     model:str="model.pkl", 
     encoder:str="encoder.pkl", 
