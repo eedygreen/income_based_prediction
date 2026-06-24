@@ -3,7 +3,6 @@ main.py
 FastAPI application serving the trained census income model.
 """
 import os
-import joblib
 import pandas as pd
 from utils import logger
 from fastapi import FastAPI
